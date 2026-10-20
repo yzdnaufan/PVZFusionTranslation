@@ -567,6 +567,7 @@
 		<Compile Include="Patches\BaseTextObjects\TextMeshPro_Patch.cs" />
 		<Compile Include="Patches\BaseTextObjects\TextMeshProUGUI_Patch.cs" />
 		<Compile Include="Patches\BaseTextObjects\TMP_InputField_Patch.cs" />
+		<Compile Include="Patches\BaseTextObjects\TMP_Text_Patch.cs" />
 		<Compile Include="Patches\Modes\Odyssey\TravelBuffMgr_Patch.cs" />
 		<Compile Include="Patches\Modes\Odyssey\TravelBuff_Patch.cs" />
 		<Compile Include="Patches\Modes\Odyssey\TravelRefresh_Patch.cs" />
@@ -589,7 +590,7 @@
 	  <Folder Include="Resources\" />
 	</ItemGroup>
 	
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(OS)' == 'Windows_NT'">
 		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(GamePath)\Mods\&quot;" />
 		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(GamePath)\Translation Builds\&quot;" />
 	</Target>

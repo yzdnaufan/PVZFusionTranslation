@@ -96,6 +96,7 @@ namespace PvZ_Fusion_Translator.AssetStore
 			/*godsEvolvedBuffDictionary.Clear();
 			godsEvolvedCollectionString.Clear();*/
 			InGameText_Patch.currentText = "";
+			TMP_Text_Patch.ClearCache();
 			Utils.RegisterPlantIndices();
 			FileLoader.LoadStrings();
 		}
