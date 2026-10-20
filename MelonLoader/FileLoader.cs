@@ -1193,26 +1193,6 @@ namespace PvZ_Fusion_Translator
 			return new ValueTuple<Il2CppAlmanacData.AlmanacData, Dictionary<string, string>>(detailStrings, detailStringsDump);
 		}
 
-        public static ShootingAlmanacIndexFile DumpDetailStrings()
-        {
-            string detailStringsData = Resources.Load<TextAsset>("detailstrings").text;
-            Il2CppAlmanacData.AlmanacData detailStrings = JsonUtility.FromJson<Il2CppAlmanacData.AlmanacData>(detailStringsData);
-
-            Dictionary<string, string> detailStringsDump = new Dictionary<string, string>();
-            foreach (var detailString in detailStrings.details)
-            {
-                if (detailStringsDump.ContainsKey(detailString.title))
-                {
-                    detailStringsDump[detailString.title] = detailString.text;
-                }
-                else
-                {
-                    detailStringsDump.Add(detailString.title, detailString.text);
-                }
-            }
-            return new ValueTuple<Il2CppAlmanacData.AlmanacData, Dictionary<string, string>>(detailStrings, detailStringsDump);
-        }
-
 #if DEBUG
         public static void DumpUntranslatedStrings(string text)
 		{
