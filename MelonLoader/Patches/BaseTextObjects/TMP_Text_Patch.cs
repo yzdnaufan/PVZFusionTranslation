@@ -19,6 +19,13 @@ namespace PvZ_Fusion_Translator.Patches.BaseTextObjects
 			cache.Clear();
 		}
 
+		// Removes the hook entirely (no per-call cost) when TranslateOnSetText is off.
+		internal static void Unpatch(HarmonyLib.Harmony harmony)
+		{
+			harmony.Unpatch(AccessTools.PropertySetter(typeof(TMP_Text), nameof(TMP_Text.text)), HarmonyPatchType.Prefix, harmony.Id);
+			Log.LogInfo("TranslateOnSetText is off: text setter hook removed.");
+		}
+
 		[HarmonyPatch(nameof(TMP_Text.text), MethodType.Setter)]
 		[HarmonyPrefix]
 		private static void SetText(TMP_Text __instance, ref string value)

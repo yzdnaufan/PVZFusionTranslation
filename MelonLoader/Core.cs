@@ -1,6 +1,7 @@
 ﻿using MelonLoader;
 using MelonLoader.Utils;
 using PvZ_Fusion_Translator.AssetStore;
+using PvZ_Fusion_Translator.Patches.BaseTextObjects;
 using PvZ_Fusion_Translator.Patches.Managers;
 using PvZ_Fusion_Translator.Patches.Modes.Super_Editor;
 using UnityEngine;
@@ -116,6 +117,7 @@ namespace PvZ_Fusion_Translator
 		public MelonPreferences_Entry<bool> configDefaultAudio;
 		public MelonPreferences_Entry<bool> configUseLocal;
 		public MelonPreferences_Entry<string> configLanguage;
+		public MelonPreferences_Entry<bool> configTranslateOnSetText;
 
 		private void Config()
 		{
@@ -125,8 +127,15 @@ namespace PvZ_Fusion_Translator
 			configDefaultAudio = category.CreateEntry("DefaultAudio", false);
 			configUseLocal = category.CreateEntry("UseLocal", false);
 			configLanguage = category.CreateEntry("Language", "English");
+			configTranslateOnSetText = category.CreateEntry("TranslateOnSetText", true,
+				description: "Translate UI text whenever it is set (needed for the Gods Almanac). Turn off if the game lags; takes effect after restart.");
 
 			MelonPreferences.Save();
+
+			if (!configTranslateOnSetText.Value)
+			{
+				TMP_Text_Patch.Unpatch(HarmonyInstance);
+			}
 		}
 	}
 }
