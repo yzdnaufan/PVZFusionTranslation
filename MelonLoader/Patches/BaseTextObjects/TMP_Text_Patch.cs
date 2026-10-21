@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Il2CppGameLevel.RogueShooting;
 using Il2CppTMPro;
 using PvZ_Fusion_Translator.AssetStore;
 
@@ -31,6 +32,10 @@ namespace PvZ_Fusion_Translator.Patches.BaseTextObjects
 		private static void SetText(TMP_Text __instance, ref string value)
 		{
 			if (string.IsNullOrEmpty(value) || !ContainsCJK(value)) return;
+
+			// Only the Gods Almanac needs this. Other menus' patches look up their translations by the
+			// original Chinese text after it is set, so translating it here first breaks those lookups.
+			if (__instance.GetComponentInParent<AlmanacShootingMenu>(true) == null) return;
 
 			if (!cache.TryGetValue(value, out string translated))
 			{
