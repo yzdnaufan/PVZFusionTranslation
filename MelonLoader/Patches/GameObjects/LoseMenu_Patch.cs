@@ -22,5 +22,16 @@ namespace PvZ_Fusion_Translator.Patches.GameObjects
                 loseMenu.title.text = StringStore.TranslateText(loseMenu.title.text);
             }
         }
+
+        // The Gods: Evolved appends the God Coin reward to the already translated title
+        [HarmonyPatch("RefreshGodCoins")]
+        [HarmonyPostfix]
+        public static void RefreshGodCoins(LoseMenu __instance)
+        {
+            if(__instance.title != null && Utils.CheckForUntranslatedText(__instance.title.text))
+            {
+                __instance.title.text = StringStore.TranslateText(__instance.title.text);
+            }
+        }
     }
 }
